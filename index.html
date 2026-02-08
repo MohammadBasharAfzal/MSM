@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSM Design - Architecture & Interior Design</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Custom styles (cacheable) -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand': {
+                            'light': '#f3f3f3',
+                            'DEFAULT': '#222222',
+                            'dark': '#1a1a1a',
+                            'accent': '#E0A800' // A nice gold/yellow accent
+                        }
+                    },
+                    aspectRatio: {
+                        '4/3': '4 / 3',
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans bg-brand-light text-brand-DEFAULT antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
+        <!-- ... (Header content remains the same) ... -->
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="flex items-center space-x-2 md:space-x-3">
+                <img src="MSM_Design_logo.jpeg" alt="MSM Design Logo" class="h-12 md:h-16 lg:h-20 w-auto">
+                <span class="text-lg md:text-2xl font-bold text-brand-DEFAULT">
+                    MSM <span class="text-brand-accent">Design</span>
+                </span>
+            </a>
+            
+            <!-- Mobile Menu Button (hidden on desktop, touch-friendly 44px min) -->
+            <button id="mobile-menu-button" type="button" aria-label="Open menu" class="md:hidden p-3 rounded-md text-brand-DEFAULT focus:outline-none focus:ring-2 focus:ring-brand-accent">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+
+            <!-- Desktop Menu (hidden on mobile) -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="text-brand-DEFAULT hover:text-brand-accent transition-colors">Home</a>
+                <a href="#services" class="text-brand-DEFAULT hover:text-brand-accent transition-colors">Services</a>
+                <a href="#portfolio" class="text-brand-DEFAULT hover:text-brand-accent transition-colors">Portfolio</a>
+                <a href="#about" class="text-brand-DEFAULT hover:text-brand-accent transition-colors">About</a>
+                <a href="#contact" class="bg-brand-accent text-brand-dark px-5 py-2 rounded-full font-medium hover:bg-brand-accent/90 hover:text-brand-DEFAULT transition-all duration-300 shadow-lg border-2 border-brand-accent hover:border-brand-accent/80">Contact Us</a>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu (sliding drawer, touch-friendly links) -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-white shadow-lg p-6" role="navigation" aria-label="Main">
+            <a href="#home" class="block text-brand-DEFAULT hover:text-brand-accent transition-colors py-3">Home</a>
+            <a href="#services" class="block text-brand-DEFAULT hover:text-brand-accent transition-colors py-3">Services</a>
+            <a href="#portfolio" class="block text-brand-DEFAULT hover:text-brand-accent transition-colors py-3">Portfolio</a>
+            <a href="#about" class="block text-brand-DEFAULT hover:text-brand-accent transition-colors py-3">About</a>
+            <a href="#contact" class="block bg-brand-accent text-brand-dark mt-4 px-5 py-3 rounded-full font-medium text-center hover:bg-brand-accent/90 hover:text-brand-DEFAULT transition-all duration-300">Contact Us</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Section 1: Hero -->
+        <section id="home" class="relative pt-20 h-screen min-h-[500px] md:min-h-[600px] flex items-center justify-center text-center text-white">
+            <!-- Background Image Overlay -->
+            <div class="absolute inset-0 bg-black/60 z-10"></div>
+
+            <!-- Hero Image Slideshow -->
+            <div id="hero-slideshow" class="absolute inset-0 z-0">
+                <img src="resources/black_background/1.jpg" onerror="this.src='https://placehold.co/1920x1080/1a1a1a/f3f3f3?text=Project+1'" alt="Hero 1" class="hero-slide active">
+                <img src="resources/black_background/2.jpg" onerror="this.src='https://placehold.co/1920x1080/1a1a1a/f3f3f3?text=Project+2'" alt="Hero 2" class="hero-slide">
+                <img src="resources/black_background/3.jpg" onerror="this.src='https://placehold.co/1920x1080/1a1a1a/f3f3f3?text=Project+3'" alt="Hero 3" class="hero-slide">
+                <img src="resources/black_background/4.jpg" onerror="this.src='https://placehold.co/1920x1080/1a1a1a/f3f3f3?text=Project+4'" alt="Hero 4" class="hero-slide">
+                <img src="resources/black_background/5.jpg" onerror="this.src='https://placehold.co/1920x1080/1a1a1a/f3f3f3?text=Project+5'" alt="Hero 5" class="hero-slide">
+                <img src="resources/black_background/6.jpg" onerror="this.src='https://placehold.co/1920x1080/1a1a1a/f3f3f3?text=Project+6'" alt="Hero 6" class="hero-slide">
+                <img src="resources/black_background/7.jpg" onerror="this.src='https://placehold.co/1920x1080/1a1a1a/f3f3f3?text=Project+7'" alt="Hero 7" class="hero-slide">
+                <img src="resources/black_background/8.jpg" onerror="this.src='https://placehold.co/1920x1080/1a1a1a/f3f3f3?text=Project+8'" alt="Hero 8" class="hero-slide">
+                <img src="resources/black_background/9.jpg" onerror="this.src='https://placehold.co/1920x1080/1a1a1a/f3f3f3?text=Project+9'" alt="Hero 9" class="hero-slide">
+                <img src="resources/black_background/10.jpg" onerror="this.src='https://placehold.co/1920x1080/1a1a1a/f3f3f3?text=Project+10'" alt="Hero 10" class="hero-slide">
+            </div>
+            
+            <!-- Hero Content -->
+            <div class="relative z-20 p-6 max-w-3xl">
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
+                    Shaping Spaces, Building Dreams
+                </h1>
+                <p class="text-lg md:text-xl mb-8 font-light text-gray-200">
+                    Expert solutions in architecture, interior & exterior design for residential and commercial projects.
+                </p>
+                <a href="#portfolio" class="bg-brand-accent text-brand-dark px-8 py-3 rounded-full font-bold text-lg hover:bg-white hover:text-brand-dark transition-all duration-300 shadow-xl transform hover:scale-105">
+                    View Our Work
+                </a>
+            </div>
+        </section>
+
+        <!-- Section 2: Services -->
+        <section id="services" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Expertise</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                        From concept to completion, we provide a full spectrum of design and construction services.
+                    </p>
+                </div>
+                
+                <!-- Services Grid -->
+                <!-- 
+                    NOTE: Using lg:grid-cols-2 for 4 items. 
+                    This will create a 2-2 layout (2 on top, 2 on bottom) which is symmetric and balanced.
+                -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- 
+                        Service Card 1: Architectural design and planning
+                        TRANSITION: Pure crossfade (no edge bleed)
+                    -->
+                    <div class="service-card transition-crossfade rounded-lg shadow-lg group h-[24rem] sm:h-[28rem] md:h-[38rem] lg:h-[44rem]">
+                        <div class="slideshow-container">
+                            <img src="resources/Architectural_Design_And_Planning/1.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+1'" alt="Architectural design and planning 1" class="slide active">
+                            <img src="resources/Architectural_Design_And_Planning/2.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+2'" alt="Architectural design and planning 2" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/3.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+3'" alt="Architectural design and planning 3" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/4.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+4'" alt="Architectural design and planning 4" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/5.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+5'" alt="Architectural design and planning 5" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/6.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+6'" alt="Architectural design and planning 6" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/7.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+7'" alt="Architectural design and planning 7" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/8.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+8'" alt="Architectural design and planning 8" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/9.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+9'" alt="Architectural design and planning 9" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/10.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+10'" alt="Architectural design and planning 10" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/11.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+11'" alt="Architectural design and planning 11" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/12.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+12'" alt="Architectural design and planning 12" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/13.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+13'" alt="Architectural design and planning 13" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/14.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+14'" alt="Architectural design and planning 14" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/15.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+15'" alt="Architectural design and planning 15" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/16.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+16'" alt="Architectural design and planning 16" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/17.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+17'" alt="Architectural design and planning 17" class="slide">
+                            <img src="resources/Architectural_Design_And_Planning/18.jpg" onerror="this.src='https://placehold.co/600x450/333/fff?text=Arch+Planning+18'" alt="Architectural design and planning 18" class="slide">
+                        </div>
+                        <div class="overlay-text">
+                            <h3 class="text-2xl font-bold text-white">Architectural Design and Planning</h3>
+                        </div>
+                    </div>
+
+                    <!-- 
+                        Service Card 2: Interior Design and Execution
+                        TRANSITION: Ken Burns - Zoom Out
+                    -->
+                    <div class="service-card transition-zoom-out rounded-lg shadow-lg group h-[24rem] sm:h-[28rem] md:h-[38rem] lg:h-[44rem]">
+                        <div class="slideshow-container">
+                            <img src="resources/Interior_design_and_its_execution/1.jpg" onerror="this.src='https://placehold.co/600x450/444/fff?text=Interior+Execution+1'" alt="Interior Design and Execution 1" class="slide active">
+                            <img src="resources/Interior_design_and_its_execution/2.jpg" onerror="this.src='https://placehold.co/600x450/444/fff?text=Interior+Execution+2'" alt="Interior Design and Execution 2" class="slide">
+                            <img src="resources/Interior_design_and_its_execution/3.jpg" onerror="this.src='https://placehold.co/600x450/444/fff?text=Interior+Execution+3'" alt="Interior Design and Execution 3" class="slide">
+                            <img src="resources/Interior_design_and_its_execution/4.jpg" onerror="this.src='https://placehold.co/600x450/444/fff?text=Interior+Execution+4'" alt="Interior Design and Execution 4" class="slide">
+                            <img src="resources/Interior_design_and_its_execution/5.jpg" onerror="this.src='https://placehold.co/600x450/444/fff?text=Interior+Execution+5'" alt="Interior Design and Execution 5" class="slide">
+                            <img src="resources/Interior_design_and_its_execution/6.jpg" onerror="this.src='https://placehold.co/600x450/444/fff?text=Interior+Execution+6'" alt="Interior Design and Execution 6" class="slide">
+                            <img src="resources/Interior_design_and_its_execution/7.jpg" onerror="this.src='https://placehold.co/600x450/444/fff?text=Interior+Execution+7'" alt="Interior Design and Execution 7" class="slide">
+                            <img src="resources/Interior_design_and_its_execution/8.jpg" onerror="this.src='https://placehold.co/600x450/444/fff?text=Interior+Execution+8'" alt="Interior Design and Execution 8" class="slide">
+                            <img src="resources/Interior_design_and_its_execution/9.jpg" onerror="this.src='https://placehold.co/600x450/444/fff?text=Interior+Execution+9'" alt="Interior Design and Execution 9" class="slide">
+                        </div>
+                        <div class="overlay-text">
+                            <h3 class="text-2xl font-bold text-white">Interior Design and Execution</h3>
+                        </div>
+                    </div>
+
+                    <!-- 
+                        Service Card 3: Facade Design and Execution
+                        TRANSITION: Horizontal Wipe
+                    -->
+                    <div class="service-card transition-wipe-h rounded-lg shadow-lg group h-[24rem] sm:h-[28rem] md:h-[38rem] lg:h-[44rem]">
+                        <div class="slideshow-container">
+                            <img src="resources/Facade_design_and_execution/1.jpg" onerror="this.src='https://placehold.co/600x450/555/fff?text=Facade+Execution+1'" alt="Facade Design and Execution 1" class="slide active">
+                            <img src="resources/Facade_design_and_execution/2.jpg" onerror="this.src='https://placehold.co/600x450/555/fff?text=Facade+Execution+2'" alt="Facade Design and Execution 2" class="slide">
+                            <img src="resources/Facade_design_and_execution/3.jpg" onerror="this.src='https://placehold.co/600x450/555/fff?text=Facade+Execution+3'" alt="Facade Design and Execution 3" class="slide">
+                            <img src="resources/Facade_design_and_execution/4.jpg" onerror="this.src='https://placehold.co/600x450/555/fff?text=Facade+Execution+4'" alt="Facade Design and Execution 4" class="slide">
+                            <img src="resources/Facade_design_and_execution/5.jpg" onerror="this.src='https://placehold.co/600x450/555/fff?text=Facade+Execution+5'" alt="Facade Design and Execution 5" class="slide">
+                            <img src="resources/Facade_design_and_execution/6.jpg" onerror="this.src='https://placehold.co/600x450/555/fff?text=Facade+Execution+6'" alt="Facade Design and Execution 6" class="slide">
+                        </div>
+                        <div class="overlay-text">
+                            <h3 class="text-2xl font-bold text-white">Facade Design and Execution</h3>
+                        </div>
+                    </div>
+
+                    <!-- 
+                        Service Card 4: 3D Miniature Model Making
+                        TRANSITION: Circle Reveal
+                    -->
+                    <div class="service-card transition-reveal-circle rounded-lg shadow-lg group h-[24rem] sm:h-[28rem] md:h-[38rem] lg:h-[44rem]">
+                        <div class="slideshow-container">
+                            <img src="resources/3d_miniature_model_making/1.jpeg" onerror="this.src='https://placehold.co/600x450/777/fff?text=3D+Miniature+1'" alt="3D Miniature Model Making 1" class="slide active">
+                            <img src="resources/3d_miniature_model_making/2.jpeg" onerror="this.src='https://placehold.co/600x450/777/fff?text=3D+Miniature+2'" alt="3D Miniature Model Making 2" class="slide">
+                            <img src="resources/3d_miniature_model_making/3.jpeg" onerror="this.src='https://placehold.co/600x450/777/fff?text=3D+Miniature+3'" alt="3D Miniature Model Making 3" class="slide">
+                            <img src="resources/3d_miniature_model_making/4.jpeg" onerror="this.src='https://placehold.co/600x450/777/fff?text=3D+Miniature+4'" alt="3D Miniature Model Making 4" class="slide">
+                            <img src="resources/3d_miniature_model_making/5.jpeg" onerror="this.src='https://placehold.co/600x450/777/fff?text=3D+Miniature+5'" alt="3D Miniature Model Making 5" class="slide">
+                        </div>
+                        <div class="overlay-text">
+                            <h3 class="text-2xl font-bold text-white">3D Miniature Model Making</h3>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Portfolio -->
+        <section id="portfolio" class="py-20 md:py-32 bg-brand-light">
+            <!-- ... (Portfolio content remains the same) ... -->
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Featured Work</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                        A selection of our projects that showcase our commitment to quality and design.
+                    </p>
+                </div>
+                
+                <!-- Portfolio Grid: 4 cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Residential -->
+                    <div class="group relative rounded-lg overflow-hidden shadow-lg service-card transition-crossfade h-[20rem] sm:h-[24rem] md:h-[28rem]">
+                        <div class="slideshow-container">
+                            <img src="resources/Featured_works/Residential/1.png" onerror="this.src='https://placehold.co/600x400/333/f3f3f3?text=Residential+1'" alt="Residential 1" class="slide active">
+                            <img src="resources/Featured_works/Residential/2.png" onerror="this.src='https://placehold.co/600x400/333/f3f3f3?text=Residential+2'" alt="Residential 2" class="slide">
+                            <img src="resources/Featured_works/Residential/3.png" onerror="this.src='https://placehold.co/600x400/333/f3f3f3?text=Residential+3'" alt="Residential 3" class="slide">
+                            <img src="resources/Featured_works/Residential/4.png" onerror="this.src='https://placehold.co/600x400/333/f3f3f3?text=Residential+4'" alt="Residential 4" class="slide">
+                            <img src="resources/Featured_works/Residential/5.png" onerror="this.src='https://placehold.co/600x400/333/f3f3f3?text=Residential+5'" alt="Residential 5" class="slide">
+                            <img src="resources/Featured_works/Residential/6.png" onerror="this.src='https://placehold.co/600x400/333/f3f3f3?text=Residential+6'" alt="Residential 6" class="slide">
+                            <img src="resources/Featured_works/Residential/7.png" onerror="this.src='https://placehold.co/600x400/333/f3f3f3?text=Residential+7'" alt="Residential 7" class="slide">
+                            <img src="resources/Featured_works/Residential/8.png" onerror="this.src='https://placehold.co/600x400/333/f3f3f3?text=Residential+8'" alt="Residential 8" class="slide">
+                            <img src="resources/Featured_works/Residential/9.png" onerror="this.src='https://placehold.co/600x400/333/f3f3f3?text=Residential+9'" alt="Residential 9" class="slide">
+                        </div>
+                        <div class="absolute inset-0 bg-black/70 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30">
+                            <div>
+                                <h3 class="text-white text-xl sm:text-2xl font-bold">Residential</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Commercial -->
+                    <div class="group relative rounded-lg overflow-hidden shadow-lg service-card transition-crossfade h-[20rem] sm:h-[24rem] md:h-[28rem]">
+                        <div class="slideshow-container">
+                            <img src="resources/Featured_works/Commercial/1.jpeg" onerror="this.src='https://placehold.co/600x400/444/f3f3f3?text=Commercial+1'" alt="Commercial 1" class="slide active">
+                            <img src="resources/Featured_works/Commercial/2.jpeg" onerror="this.src='https://placehold.co/600x400/444/f3f3f3?text=Commercial+2'" alt="Commercial 2" class="slide">
+                            <img src="resources/Featured_works/Commercial/3.jpeg" onerror="this.src='https://placehold.co/600x400/444/f3f3f3?text=Commercial+3'" alt="Commercial 3" class="slide">
+                            <img src="resources/Featured_works/Commercial/4.jpeg" onerror="this.src='https://placehold.co/600x400/444/f3f3f3?text=Commercial+4'" alt="Commercial 4" class="slide">
+                            <img src="resources/Featured_works/Commercial/5.jpeg" onerror="this.src='https://placehold.co/600x400/444/f3f3f3?text=Commercial+5'" alt="Commercial 5" class="slide">
+                            <img src="resources/Featured_works/Commercial/6.jpeg" onerror="this.src='https://placehold.co/600x400/444/f3f3f3?text=Commercial+6'" alt="Commercial 6" class="slide">
+                            <img src="resources/Featured_works/Commercial/7.jpeg" onerror="this.src='https://placehold.co/600x400/444/f3f3f3?text=Commercial+7'" alt="Commercial 7" class="slide">
+                            <img src="resources/Featured_works/Commercial/8.jpeg" onerror="this.src='https://placehold.co/600x400/444/f3f3f3?text=Commercial+8'" alt="Commercial 8" class="slide">
+                            <img src="resources/Featured_works/Commercial/9.jpeg" onerror="this.src='https://placehold.co/600x400/444/f3f3f3?text=Commercial+9'" alt="Commercial 9" class="slide">
+                        </div>
+                        <div class="absolute inset-0 bg-black/70 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30">
+                            <div>
+                                <h3 class="text-white text-xl sm:text-2xl font-bold">Commercial</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Interior Modelling and Rendering -->
+                    <div class="group relative rounded-lg overflow-hidden shadow-lg service-card transition-crossfade h-[20rem] sm:h-[24rem] md:h-[28rem]">
+                        <div class="slideshow-container">
+                            <img src="resources/3d_software_modelling_and_rendering/1.jpg" onerror="this.src='https://placehold.co/600x400/555/f3f3f3?text=Interior+Modelling+1'" alt="Interior Modelling and Rendering 1" class="slide active">
+                            <img src="resources/3d_software_modelling_and_rendering/2.jpg" onerror="this.src='https://placehold.co/600x400/555/f3f3f3?text=Interior+Modelling+2'" alt="Interior Modelling and Rendering 2" class="slide">
+                            <img src="resources/3d_software_modelling_and_rendering/4.jpg" onerror="this.src='https://placehold.co/600x400/555/f3f3f3?text=Interior+Modelling+3'" alt="Interior Modelling and Rendering 3" class="slide">
+                            <img src="resources/3d_software_modelling_and_rendering/5.jpg" onerror="this.src='https://placehold.co/600x400/555/f3f3f3?text=Interior+Modelling+4'" alt="Interior Modelling and Rendering 4" class="slide">
+                            <img src="resources/3d_software_modelling_and_rendering/6.jpg" onerror="this.src='https://placehold.co/600x400/555/f3f3f3?text=Interior+Modelling+5'" alt="Interior Modelling and Rendering 5" class="slide">
+                            <img src="resources/3d_software_modelling_and_rendering/7.jpg" onerror="this.src='https://placehold.co/600x400/555/f3f3f3?text=Interior+Modelling+6'" alt="Interior Modelling and Rendering 6" class="slide">
+                            <img src="resources/3d_software_modelling_and_rendering/8.jpg" onerror="this.src='https://placehold.co/600x400/555/f3f3f3?text=Interior+Modelling+7'" alt="Interior Modelling and Rendering 7" class="slide">
+                            <img src="resources/3d_software_modelling_and_rendering/9.jpg" onerror="this.src='https://placehold.co/600x400/555/f3f3f3?text=Interior+Modelling+8'" alt="Interior Modelling and Rendering 8" class="slide">
+                            <img src="resources/3d_software_modelling_and_rendering/10.jpg" onerror="this.src='https://placehold.co/600x400/555/f3f3f3?text=Interior+Modelling+9'" alt="Interior Modelling and Rendering 9" class="slide">
+                            <img src="resources/3d_software_modelling_and_rendering/11.jpg" onerror="this.src='https://placehold.co/600x400/555/f3f3f3?text=Interior+Modelling+10'" alt="Interior Modelling and Rendering 10" class="slide">
+                            <img src="resources/3d_software_modelling_and_rendering/12.jpg" onerror="this.src='https://placehold.co/600x400/555/f3f3f3?text=Interior+Modelling+11'" alt="Interior Modelling and Rendering 11" class="slide">
+                            <img src="resources/3d_software_modelling_and_rendering/13.jpg" onerror="this.src='https://placehold.co/600x400/555/f3f3f3?text=Interior+Modelling+12'" alt="Interior Modelling and Rendering 12" class="slide">
+                            <img src="resources/3d_software_modelling_and_rendering/14.jpg" onerror="this.src='https://placehold.co/600x400/555/f3f3f3?text=Interior+Modelling+13'" alt="Interior Modelling and Rendering 13" class="slide">
+                            <img src="resources/3d_software_modelling_and_rendering/15.jpg" onerror="this.src='https://placehold.co/600x400/555/f3f3f3?text=Interior+Modelling+14'" alt="Interior Modelling and Rendering 14" class="slide">
+                        </div>
+                        <div class="absolute inset-0 bg-black/70 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30">
+                            <div>
+                                <h3 class="text-white text-xl sm:text-2xl font-bold">Interior Modelling and Rendering</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 3D Software Modeling and Rendering -->
+                    <div class="group relative rounded-lg overflow-hidden shadow-lg service-card transition-crossfade h-[20rem] sm:h-[24rem] md:h-[28rem]">
+                        <div class="slideshow-container">
+                            <img src="resources/Featured_works/3D_Modelling_and_rending/1.jpg" onerror="this.src='https://placehold.co/600x400/777/f3f3f3?text=3D+Modelling+1'" alt="3D Software Modeling and Rendering 1" class="slide active">
+                            <img src="resources/Featured_works/3D_Modelling_and_rending/2.jpg" onerror="this.src='https://placehold.co/600x400/777/f3f3f3?text=3D+Modelling+2'" alt="3D Software Modeling and Rendering 2" class="slide">
+                            <img src="resources/Featured_works/3D_Modelling_and_rending/3.jpg" onerror="this.src='https://placehold.co/600x400/777/f3f3f3?text=3D+Modelling+3'" alt="3D Software Modeling and Rendering 3" class="slide">
+                            <img src="resources/Featured_works/3D_Modelling_and_rending/4.jpg" onerror="this.src='https://placehold.co/600x400/777/f3f3f3?text=3D+Modelling+4'" alt="3D Software Modeling and Rendering 4" class="slide">
+                            <img src="resources/Featured_works/3D_Modelling_and_rending/5.jpg" onerror="this.src='https://placehold.co/600x400/777/f3f3f3?text=3D+Modelling+5'" alt="3D Software Modeling and Rendering 5" class="slide">
+                            <img src="resources/Featured_works/3D_Modelling_and_rending/6.jpg" onerror="this.src='https://placehold.co/600x400/777/f3f3f3?text=3D+Modelling+6'" alt="3D Software Modeling and Rendering 6" class="slide">
+                            <img src="resources/Featured_works/3D_Modelling_and_rending/7.jpg" onerror="this.src='https://placehold.co/600x400/777/f3f3f3?text=3D+Modelling+7'" alt="3D Software Modeling and Rendering 7" class="slide">
+                            <img src="resources/Featured_works/3D_Modelling_and_rending/8.jpg" onerror="this.src='https://placehold.co/600x400/777/f3f3f3?text=3D+Modelling+8'" alt="3D Software Modeling and Rendering 8" class="slide">
+                        </div>
+                        <div class="absolute inset-0 bg-black/70 flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30">
+                            <div>
+                                <h3 class="text-white text-xl sm:text-2xl font-bold">3D Software Modeling and Rendering</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: About Us -->
+        <section id="about" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                    <!-- About Image -->
+                    <div>
+                        <img 
+                            src="https://placehold.co/600x450/222222/f3f3f3?text=Our+Design+Team+in+Meeting" 
+                            onerror="this.src='https://placehold.co/600x450/222222/f3f3f3?text=Our+Design+Team'"
+                            alt="Our design team in a meeting" 
+                            class="rounded-lg shadow-xl w-full h-auto object-cover"
+                        >
+                    </div>
+                    <!-- About Content -->
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6">We Are MSM <span class="text-brand-accent">Design</span></h2>
+                        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                            We are a passionate team of architects, designers, and builders dedicated to creating spaces that inspire. Our design philosophy is rooted in authenticity, innovation, and a deep respect for our client's visions.
+                        </p>
+                        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                            We have earned a reputation for delivering thoughtful design and quality craftsmanship, bringing care and creativity to every project — from cozy homes to large-scale commercial spaces.
+                        </p>
+                        <a href="#contact" class="bg-white text-brand-DEFAULT px-8 py-3 rounded-full font-medium hover:bg-brand-accent hover:text-brand-DEFAULT transition-all duration-300 shadow-lg border-2 border-brand-DEFAULT">
+                            Work With Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Contact -->
+        <style>
+            /* Guarantee contact form is interactive even if external CSS fails to load (e.g. opening as file://) */
+            #contact { position: relative; z-index: 20; isolation: isolate; pointer-events: auto; }
+            #contact form, #contact input, #contact textarea, #contact select, #contact button { pointer-events: auto; }
+        </style>
+        <section id="contact" class="py-20 md:py-32 bg-brand-dark text-gray-300">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Let's Build Something Together</h2>
+                    <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+                        Have a project in mind? We'd love to hear about it. Reach out to us for a consultation.
+                    </p>
+                </div>
+                
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 relative z-10">
+                    <!-- Contact Form - Formspree (works on any host, e.g. GitHub Pages) -->
+                    <div id="contact-form-wrap">
+                    <form id="contact-form" name="contact" method="POST" class="space-y-6 relative" action="https://formspree.io/f/mjgekbay">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Your name"
+                                class="w-full px-4 py-3 rounded-lg bg-white text-black border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-accent placeholder-gray-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                            <input type="email" id="email" name="email" required placeholder="you@example.com"
+                                class="w-full px-4 py-3 rounded-lg bg-white text-black border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-accent placeholder-gray-500">
+                        </div>
+                        <div>
+                            <label for="service" class="block text-sm font-medium text-gray-300 mb-2">Service of Interest</label>
+                            <select id="service" name="service"
+                                class="w-full px-4 py-3 rounded-lg bg-white text-black border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-accent">
+                                <option>Select a service</option>
+                                <option>Interior Design</option>
+                                <option>Exterior & Facade</option>
+                                <option>Residential Construction</option>
+                                <option>Commercial Construction</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Tell us about your project..."
+                                class="w-full px-4 py-3 rounded-lg bg-white text-black border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-accent placeholder-gray-500 resize-y"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit"
+                                class="w-full bg-brand-accent text-brand-dark px-8 py-3 rounded-full font-bold text-lg hover:bg-white hover:text-brand-dark transition-all duration-300 shadow-xl transform hover:scale-105">
+                                Send Message
+                            </button>
+                        </div>
+                        <!-- Honeypot: keep at end so it's not first focusable field (Formspree ignores if filled) -->
+                        <p class="hidden" aria-hidden="true">
+                            <label>Leave empty: <input name="_gotcha" tabindex="-1" autocomplete="off"></label>
+                        </p>
+                    </form>
+                    </div>
+                    <!-- Custom thank you (shown after submit, no redirect to Formspree) -->
+                    <div id="contact-thank-you" class="hidden rounded-lg bg-white/10 border border-white/20 p-8 text-center">
+                        <h3 class="text-2xl font-bold text-white mb-2">Thank you!</h3>
+                        <p class="text-gray-300">We've received your message and will get back to you soon.</p>
+                    </div>
+                    <!-- Contact Info -->
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">Visit Our Studio</h3>
+                            <p>45/1/1A, Bright Street (Ground Floor)<br>Kolkata, WB, 700017</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">Get in Touch</h3>
+                            <p class="mb-2"><strong>Email:</strong> <a href="mailto:msmdesignstudiokolkata@gmail.com" class="text-gray-300 hover:text-brand-accent transition-colors">msmdesignstudiokolkata@gmail.com</a></p>
+                            <p><strong>Phone:</strong> +91 98755 60775</p>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-3">Follow Us</h3>
+                            <div class="flex space-x-4">
+                                <a href="https://www.instagram.com/msm.designstudio/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-brand-accent transition-colors" aria-label="Follow us on Instagram">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 012.153 2.153c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-2.153 2.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808.06s-2.784-.012-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-2.153-2.153c-.247-.636-.416-1.363-.465-2.427-.048-1.024-.06-1.378-.06-3.808s.012-2.784.06-3.808c.049-1.064.218-1.791.465-2.427a4.902 4.902 0 012.153-2.153c.636-.247 1.363-.416 2.427.465C9.53 2.013 9.884 2 12.315 2zm0 1.62c-2.403 0-2.731.01-3.69.056-.945.043-1.483.195-1.898.358-.585.195-.99.45-1.433.894-.444.444-.7 1.028-.894 1.433-.163.415-.315.953-.358 1.898-.046.96-.056 1.287-.056 3.69s.01 2.73.056 3.69c.043.945.195 1.483.358 1.898.195.585.45.99.894 1.433.444.444 1.028.7 1.433.894.415.163.953.315 1.898.358.96.046 1.287.056 3.69.056s2.73-.01 3.69-.056c.945-.043 1.483-.195 1.898-.358.585-.195.99-.45 1.433-.894.444-.444.7-1.028.894-1.433.163-.415.315-.953.358-1.898.046-.96.056-1.287.056-3.69s-.01-2.73-.056-3.69c-.043-.945-.195-1.483-.358-1.898-.195-.585-.45-.99-.894-1.433-.444-.444-1.028-.7-1.433-.894-.415-.163-.953-.315-1.898-.358C15.046 3.63 14.718 3.62 12.315 3.62zM12 7.031a4.969 4.969 0 100 9.938 4.969 4.969 0 000-9.938zm0 8.312a3.344 3.344 0 110-6.688 3.344 3.344 0 010 6.688zm5.038-9.828a1.172 1.172 0 100 2.344 1.172 1.172 0 000-2.344z" clip-rule="evenodd" /></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark border-t border-gray-800">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-500">
+            <p>&copy; 2026 MSM Design. All Rights Reserved. Crafted with care.</p>
+        </div>
+    </footer>
+
+    <!-- Main script (cacheable) -->
+    <script src="js/main.js"></script>
+    <!-- Contact form: submit via JS so we stay on page and show custom thank you -->
+    <script>
+      (function() {
+        var form = document.getElementById('contact-form');
+        var formWrap = document.getElementById('contact-form-wrap');
+        var thankYou = document.getElementById('contact-thank-you');
+        if (!form || !formWrap || !thankYou) return;
+
+        document.querySelectorAll('#contact input, #contact textarea, #contact select').forEach(function(el) {
+          el.addEventListener('focus', function() { this.style.outline = '2px solid #E0A800'; });
+          el.addEventListener('blur', function() { this.style.outline = ''; });
+        });
+
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var btn = form.querySelector('button[type="submit"]');
+          var originalText = btn.textContent;
+          btn.disabled = true;
+          btn.textContent = 'Sending…';
+          fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          }).then(function(res) {
+            if (res.ok) {
+              formWrap.classList.add('hidden');
+              thankYou.classList.remove('hidden');
+            } else {
+              btn.disabled = false;
+              btn.textContent = originalText;
+              alert('Something went wrong. Please try again or email us directly.');
+            }
+          }).catch(function() {
+            btn.disabled = false;
+            btn.textContent = originalText;
+            alert('Something went wrong. Please try again or email us directly.');
+          });
+        });
+      })();
+    </script>
+</body>
+</html>

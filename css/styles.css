@@ -1,0 +1,191 @@
+/**
+ * MSM Design - Custom styles
+ * Hero, service cards, slideshows and transitions
+ * Responsive: mobile, tablet, laptop, desktop
+ */
+
+/* Prevent horizontal scroll on any viewport */
+html, body {
+    overflow-x: hidden;
+}
+
+/* Small helper for smooth scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Hero Slideshow Styles */
+#hero-slideshow .hero-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.25s ease-in-out;
+    z-index: 1; /* Below the overlay */
+}
+#hero-slideshow .hero-slide.active {
+    opacity: 1;
+}
+
+/* --- Service Card Slideshow Styles --- */
+.service-card {
+    position: relative;
+    overflow: hidden; /* This is crucial for transitions */
+    z-index: 1;
+}
+.service-card .slideshow-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+.service-card .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 5; /* Base for non-active */
+}
+.service-card .slide.active {
+    z-index: 10; /* Active slide is on top */
+}
+.service-card .overlay-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.0) 100%);
+    padding: 1.25rem 1rem 1rem; /* Tighter on mobile */
+    z-index: 20;
+    transition: all 0.3s ease;
+}
+@media (min-width: 640px) {
+    .service-card .overlay-text { padding: 2rem 1.25rem 1.25rem; }
+}
+@media (min-width: 768px) {
+    .service-card .overlay-text { padding: 2.5rem 1.5rem 1.5rem; }
+}
+
+/* --- Unique Transitions --- */
+
+/* 1. Ken Burns - Zoom In */
+.transition-zoom-in .slide {
+    transform: scale(0.95);
+    transition: opacity 1.5s ease-in-out, transform 8s linear;
+}
+.transition-zoom-in .slide.active {
+    opacity: 1;
+    transform: scale(1.05); /* Subtle zoom in when active */
+}
+
+/* 2. Ken Burns - Zoom Out */
+.transition-zoom-out .slide {
+    transform: scale(1.05); /* Starts slightly zoomed in */
+    transition: opacity 1.5s ease-in-out, transform 8s linear;
+}
+.transition-zoom-out .slide.active {
+    opacity: 1;
+    transform: scale(0.95); /* Subtle zoom out when active */
+}
+
+/* 3. Clip-Path - Horizontal Wipe */
+.transition-wipe-h .slide {
+    opacity: 1; /* Opacity is always 1 */
+    clip-path: inset(0 100% 0 0); /* Hides by clipping from right */
+    transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.transition-wipe-h .slide.active {
+    clip-path: inset(0 0 0 0); /* Reveals */
+}
+
+/* 4. Clip-Path - Vertical Wipe */
+.transition-wipe-v .slide {
+    opacity: 1;
+    clip-path: inset(100% 0 0 0); /* Hides by clipping from bottom */
+    transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.transition-wipe-v .slide.active {
+    clip-path: inset(0 0 0 0); /* Reveals */
+}
+
+/* 5. Clip-Path - Circle Reveal */
+.transition-reveal-circle .slide {
+    opacity: 1;
+    clip-path: circle(0% at 50% 50%); /* Hides as a point */
+    transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.transition-reveal-circle .slide.active {
+    clip-path: circle(75% at 50% 50%); /* Reveals (75% covers a 4:3 rect) */
+}
+
+/* 6. Pure crossfade - each image stretched to fill card entirely, no black bezels */
+.transition-crossfade .slideshow-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.transition-crossfade .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    display: block;
+    opacity: 0;
+    transform: none;
+    object-fit: fill;
+    object-position: center;
+    transition: opacity 1.2s ease-in-out;
+}
+.transition-crossfade .slide.active {
+    opacity: 1;
+    transform: none;
+}
+
+/* Contact form: ensure inputs are on top and text is visible (fixes "can't type" on some setups) */
+#contact form {
+    position: relative;
+    z-index: 1;
+}
+#contact input,
+#contact textarea,
+#contact select {
+    position: relative;
+    z-index: 2;
+    color: #000;
+    background-color: #fff;
+}
+#contact input,
+#contact textarea {
+    -webkit-appearance: none;
+    appearance: none;
+}
+#contact input::placeholder,
+#contact textarea::placeholder {
+    color: #6b7280;
+}
+
+/* --- Responsive & touch-friendly --- */
+/* Minimum touch target for mobile menu button (accessibility) */
+@media (max-width: 767px) {
+    #mobile-menu-button {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0.75rem;
+    }
+}
+/* Long card titles: scale down on small screens to avoid overflow */
+@media (max-width: 639px) {
+    .service-card .overlay-text h3 {
+        font-size: 1.125rem;
+        line-height: 1.35;
+    }
+}
