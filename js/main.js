@@ -53,4 +53,61 @@ document.addEventListener('DOMContentLoaded', () => {
             slides[currentSlide].classList.add('active');
         }, serviceSlideInterval);
     });
+
+    // --- Review Carousel ---
+    const reviewTrack = document.getElementById('review-track');
+    const reviewDotsContainer = document.getElementById('review-dots');
+    const reviewPrev = document.getElementById('review-prev');
+    const reviewNext = document.getElementById('review-next');
+    const reviewCarousel = document.getElementById('review-carousel');
+
+    if (reviewTrack && reviewDotsContainer) {
+        const reviewSlides = reviewTrack.querySelectorAll('.review-slide');
+        let currentReview = 0;
+        let reviewTimer = null;
+        const reviewInterval = 5000;
+
+        reviewSlides.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'review-dot' + (index === 0 ? ' active' : '');
+            dot.setAttribute('role', 'tab');
+            dot.setAttribute('aria-label', 'Go to review ' + (index + 1));
+            dot.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+            dot.addEventListener('click', () => goToReview(index, true));
+            reviewDotsContainer.appendChild(dot);
+        });
+
+        const reviewDots = reviewDotsContainer.querySelectorAll('.review-dot');
+
+        function goToReview(index, resetTimer) {
+            currentReview = (index + reviewSlides.length) % reviewSlides.length;
+            reviewTrack.style.transform = 'translateX(-' + (currentReview * 100) + '%)';
+            reviewDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentReview);
+                dot.setAttribute('aria-selected', i === currentReview ? 'true' : 'false');
+            });
+            if (resetTimer) startReviewTimer();
+        }
+
+        function startReviewTimer() {
+            if (reviewTimer) clearInterval(reviewTimer);
+            reviewTimer = setInterval(() => goToReview(currentReview + 1, false), reviewInterval);
+        }
+
+        if (reviewPrev) {
+            reviewPrev.addEventListener('click', () => goToReview(currentReview - 1, true));
+        }
+        if (reviewNext) {
+            reviewNext.addEventListener('click', () => goToReview(currentReview + 1, true));
+        }
+        if (reviewCarousel) {
+            reviewCarousel.addEventListener('mouseenter', () => {
+                if (reviewTimer) clearInterval(reviewTimer);
+            });
+            reviewCarousel.addEventListener('mouseleave', startReviewTimer);
+        }
+
+        startReviewTimer();
+    }
 });

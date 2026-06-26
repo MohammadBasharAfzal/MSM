@@ -189,3 +189,64 @@ html {
         line-height: 1.35;
     }
 }
+
+/* --- Client Reviews Carousel --- */
+.review-carousel {
+    position: relative;
+}
+.review-track {
+    display: flex;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.review-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+    min-height: 11rem;
+}
+.review-avatar {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+.review-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    border: 1px solid #e5e7eb;
+    color: #222222;
+    background: #fff;
+    transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+}
+.review-nav-btn:hover {
+    border-color: #E0A800;
+    color: #E0A800;
+}
+.review-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: #d1d5db;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+.review-dot.active {
+    background: #E0A800;
+    transform: scale(1.25);
+}
+.review-dot:focus-visible,
+.review-nav-btn:focus-visible {
+    outline: 2px solid #E0A800;
+    outline-offset: 2px;
+}
