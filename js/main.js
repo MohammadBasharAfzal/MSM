@@ -22,16 +22,21 @@
       images: seq('Featured_works/Residential', 'webp', 1, 9)
     },
     commercial: {
-      title: 'Commercial',
+      title: 'Commercial Projects',
       images: seq('Featured_works/Commercial', 'webp', 1, 9)
     },
-    interior3d: {
-      title: 'Interior Modelling & Rendering',
+    visualization: {
+      title: 'Architectural Visualization',
       images: seq('3d_software_modelling_and_rendering', 'webp', 1, 15, [3])
+        .concat(seq('Featured_works/3D_Modelling_and_rending', 'webp', 1, 8))
     },
-    model3d: {
-      title: '3D Software Modelling',
-      images: seq('Featured_works/3D_Modelling_and_rending', 'webp', 1, 8)
+    models: {
+      title: 'Architectural Models',
+      images: seq('3d_miniature_model_making', 'webp', 1, 5)
+    },
+    elevation: {
+      title: 'Facade & Elevation Design',
+      images: seq('Facade_design_and_execution', 'webp', 1, 6)
     }
   };
 
@@ -92,6 +97,76 @@
       reveals.forEach(function (el) { io.observe(el); });
     } else {
       reveals.forEach(function (el) { el.classList.add('is-visible'); });
+    }
+
+    /* ---------- featured architectural visualization carousel ---------- */
+    var featured = document.querySelector('.work-card--featured');
+    if (featured && GALLERIES.visualization) {
+      var visualization = GALLERIES.visualization.images;
+      var visualizationImage = featured.querySelector('.visualization-image');
+      var visualizationBackdrop = featured.querySelector('.visualization-backdrop');
+      var visualizationDots = featured.querySelector('.visualization-dots');
+      var visualizationIndex = 0;
+      var visualizationTimer;
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function renderVisualization(index) {
+        visualizationIndex = (index + visualization.length) % visualization.length;
+        var source = visualization[visualizationIndex];
+        visualizationImage.classList.remove('is-active');
+        visualizationImage.onload = function () {
+          visualizationImage.classList.add('is-active');
+        };
+        visualizationImage.src = source;
+        visualizationImage.alt = 'Architectural visualization ' + (visualizationIndex + 1);
+        visualizationBackdrop.style.backgroundImage = 'url("' + source + '")';
+        visualizationDots.querySelectorAll('button').forEach(function (dot, i) {
+          dot.classList.toggle('active', i === visualizationIndex);
+          dot.setAttribute('aria-selected', i === visualizationIndex ? 'true' : 'false');
+        });
+      }
+
+      visualization.forEach(function (_, i) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'visualization-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', 'Show visualization ' + (i + 1));
+        dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+        dot.addEventListener('click', function (e) {
+          e.stopPropagation();
+          renderVisualization(i);
+          startVisualizationTimer();
+        });
+        visualizationDots.appendChild(dot);
+      });
+
+      function startVisualizationTimer() {
+        if (visualizationTimer) clearInterval(visualizationTimer);
+        if (!reduceMotion) {
+          visualizationTimer = setInterval(function () {
+            renderVisualization(visualizationIndex + 1);
+          }, 2500);
+        }
+      }
+
+      featured.querySelector('.visualization-prev').addEventListener('click', function (e) {
+        e.stopPropagation();
+        renderVisualization(visualizationIndex - 1);
+        startVisualizationTimer();
+      });
+      featured.querySelector('.visualization-next').addEventListener('click', function (e) {
+        e.stopPropagation();
+        renderVisualization(visualizationIndex + 1);
+        startVisualizationTimer();
+      });
+      featured.addEventListener('mouseenter', function () {
+        if (visualizationTimer) clearInterval(visualizationTimer);
+      });
+      featured.addEventListener('mouseleave', startVisualizationTimer);
+      visualizationImage.addEventListener('click', function (e) { e.stopPropagation(); });
+      renderVisualization(0);
+      startVisualizationTimer();
     }
 
     /* ---------- lightbox gallery ---------- */
