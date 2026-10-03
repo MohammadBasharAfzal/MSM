@@ -23,7 +23,7 @@
     },
     commercial: {
       title: 'Commercial',
-      images: seq('Featured_works/Commercial', 'jpeg', 1, 9)
+      images: seq('Featured_works/Commercial', 'webp', 1, 9)
     },
     interior3d: {
       title: 'Interior Modelling & Rendering',
