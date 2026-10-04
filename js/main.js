@@ -27,16 +27,15 @@
     },
     visualization: {
       title: 'Architectural Visualization',
-      images: seq('3d_software_modelling_and_rendering', 'webp', 1, 15, [3])
-        .concat(seq('Featured_works/3D_Modelling_and_rending', 'webp', 1, 8))
+      images: seq('3d_software_modelling_and_rendering', 'webp', 1, 25)
     },
     models: {
       title: 'Architectural Models',
-      images: seq('3d_miniature_model_making', 'webp', 1, 5)
+      images: seq('3d_miniature_model_making', 'webp', 1, 8)
     },
     elevation: {
       title: 'Facade & Elevation Design',
-      images: seq('Facade_design_and_execution', 'webp', 1, 6)
+      images: seq('Facade_design_and_execution', 'webp', 1, 8)
     }
   };
 
