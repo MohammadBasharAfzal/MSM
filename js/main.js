@@ -19,7 +19,7 @@
   var GALLERIES = {
     residential: {
       title: 'Residential',
-      images: seq('Featured_works/Residential', 'webp', 1, 9)
+      images: seq('Featured_works/Residential', 'webp', 1, 11)
     },
     commercial: {
       title: 'Commercial Projects',
