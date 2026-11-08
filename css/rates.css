@@ -1,0 +1,138 @@
+/* MSM Design Studio — full rate chart (pricing.html). Uses tokens from styles.css. */
+
+/* =====================================================================
+   RATE CHART SECTION
+   ===================================================================== */
+.rates { background: var(--ink-2); border-top: 1px solid var(--line-d); }
+.rates .sec-head { max-width: 760px; }
+
+.rate-tabs { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: clamp(28px,4vw,44px); }
+.rate-tab { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; padding: 18px 20px; border: 1px solid var(--line-d); border-radius: 3px; background: var(--ink); color: var(--cream); cursor: pointer; text-align: left; font: inherit; transition: .25s; }
+.rate-tab span { font: 21px var(--font-serif); line-height: 1.15; }
+.rate-tab small { color: var(--muted-d); font: 11.5px var(--font-mono); letter-spacing: .06em; }
+.rate-tab:hover { border-color: rgba(198,161,91,.55); transform: translateY(-2px); }
+.rate-tab.is-active { border-color: var(--gold); background: var(--gold); color: var(--gold-ink); }
+.rate-tab.is-active small { color: rgba(31,23,8,.78); }
+.rate-tab:focus-visible, .acc summary:focus-visible, .btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.rate-panel[hidden] { display: none; }
+.rate-panel { animation: rateFade .45s ease both; }
+@keyframes rateFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+.panel-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 22px; margin-bottom: 30px; padding-bottom: 28px; border-bottom: 1px solid var(--line-d); }
+.panel-head > div:first-child { max-width: 700px; }
+.panel-eyebrow { margin-bottom: 12px; color: var(--gold); font: 11.5px var(--font-mono); letter-spacing: .2em; text-transform: uppercase; }
+.panel-head h3 { font-size: clamp(30px,4.4vw,46px); }
+.panel-tag { margin-top: 10px; color: var(--gold); font: italic 19px var(--font-serif); }
+.panel-intro { margin-top: 14px; color: var(--muted-d); font-size: 16.5px; }
+.pdf-link { padding: 12px 20px; font-size: 14.5px; }
+.pdf-link svg { width: 18px; height: 18px; flex: none; }
+
+.sub-h { margin: 38px 0 16px; color: var(--cream); font: 12px var(--font-mono); letter-spacing: .22em; text-transform: uppercase; display: flex; align-items: center; gap: 12px; }
+.sub-h::after { content: ""; flex: 1; height: 1px; background: var(--line-d); }
+.acc__body .sub-h:first-child { margin-top: 4px; }
+
+/* Tier cards */
+.tier-grid { display: grid; gap: 14px; }
+.tier-grid--3 { grid-template-columns: repeat(3,1fr); }
+.tier-grid--4 { grid-template-columns: repeat(4,1fr); }
+.tier { position: relative; display: flex; flex-direction: column; padding: 26px 24px 28px; border: 1px solid var(--line-d); border-radius: 4px; background: var(--ink); transition: .3s; }
+.tier:hover { border-color: rgba(198,161,91,.5); transform: translateY(-3px); }
+.tier--rec { border-color: var(--gold); background: linear-gradient(180deg, rgba(198,161,91,.12), var(--ink) 62%); box-shadow: 0 0 0 1px var(--gold) inset; }
+.tier__tag { align-self: flex-start; margin-bottom: 14px; padding: 4px 10px; border: 1px solid var(--line-d); border-radius: 20px; color: var(--muted-d); font: 10.5px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; }
+.tier--rec .tier__tag { border-color: var(--gold); background: var(--gold); color: var(--gold-ink); font-weight: 700; }
+.tier__name { font-size: 24px; }
+.tier__price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 14px 0 12px; color: var(--gold); font: clamp(26px,2.7vw,33px) var(--font-serif); line-height: 1.1; }
+.tier__unit { color: var(--muted-d); font: 12.5px var(--font-mono); }
+.tier__desc { color: var(--muted-d); font-size: 15px; line-height: 1.6; }
+.rate-note { margin-top: 18px; padding-left: 14px; border-left: 2px solid var(--gold); color: var(--muted-d); font-size: 14.5px; line-height: 1.65; }
+.acc__body .rate-note:first-child { margin-top: 0; margin-bottom: 18px; }
+
+/* Accordions */
+.acc { margin-top: 12px; border: 1px solid var(--line-d); border-radius: 4px; background: var(--ink); }
+.acc:first-of-type { margin-top: 28px; }
+.acc[open] { border-color: rgba(198,161,91,.4); }
+.acc summary { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; padding: 20px 56px 20px 24px; list-style: none; cursor: pointer; position: relative; }
+.acc summary::-webkit-details-marker { display: none; }
+.acc__t { font: 21px var(--font-serif); }
+.acc__sub { color: var(--muted-d); font: 12px var(--font-mono); letter-spacing: .04em; }
+.acc__i { position: absolute; top: 50%; right: 22px; width: 18px; height: 18px; transform: translateY(-50%); }
+.acc__i::before, .acc__i::after { content: ""; position: absolute; top: 50%; left: 50%; width: 14px; height: 2px; background: var(--gold); transform: translate(-50%,-50%); transition: .25s; }
+.acc__i::after { transform: translate(-50%,-50%) rotate(90deg); }
+.acc[open] .acc__i::after { transform: translate(-50%,-50%) rotate(0); opacity: 0; }
+.acc summary:hover .acc__t { color: var(--gold); }
+.acc__body { padding: 4px 24px 28px; border-top: 1px solid var(--line-d); padding-top: 22px; }
+
+/* Tables */
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--line-d); border-radius: 3px; -webkit-overflow-scrolling: touch; }
+.rt { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; }
+.rt thead th { position: sticky; top: 0; padding: 13px 16px; background: #241f18; color: var(--gold); font: 11px var(--font-mono); letter-spacing: .16em; text-align: left; text-transform: uppercase; white-space: nowrap; }
+.rt tbody th, .rt tbody td { padding: 13px 16px; border-top: 1px solid var(--line-d); text-align: left; vertical-align: top; }
+.rt tbody th { width: 28%; min-width: 170px; color: var(--cream); font: 600 15px var(--font-sans); background: rgba(255,255,255,.025); }
+.rt tbody td { color: #d8cfbc; }
+.rt tbody tr:hover td, .rt tbody tr:hover th { background: rgba(198,161,91,.06); }
+.rt--price tbody td:nth-child(2), .rt--price tbody td:nth-child(3) { color: var(--gold); font-weight: 600; white-space: nowrap; }
+.rt--rate3 tbody td:nth-child(3) { color: var(--gold); font-weight: 600; white-space: nowrap; }
+
+/* Lists, chips, callouts */
+.bul { margin: 0; padding: 0; list-style: none; }
+.bul li { position: relative; padding: 5px 0 5px 22px; color: #d8cfbc; font-size: 15px; }
+.bul li::before { content: ""; position: absolute; top: 15px; left: 2px; width: 8px; height: 1px; background: var(--gold); }
+.num { margin: 0; padding-left: 22px; color: #d8cfbc; font-size: 15px; }
+.num li { padding: 4px 0 4px 6px; }
+.num li::marker { color: var(--gold); font-family: var(--font-mono); }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.chips li { padding: 9px 16px; border: 1px solid var(--line-d); border-radius: 30px; color: #d8cfbc; font-size: 14px; background: var(--ink); }
+.callout { margin-top: 22px; padding: 20px 22px; border: 1px solid var(--line-d); border-left: 3px solid var(--gold); border-radius: 3px; background: rgba(255,255,255,.03); }
+.callout strong { display: block; margin-bottom: 8px; color: var(--cream); font-size: 15.5px; }
+.callout p { color: var(--muted-d); font-size: 15px; }
+.callout .bul { margin-top: 4px; }
+.callout--gold { margin: 0 0 6px; border-color: var(--gold); background: rgba(198,161,91,.09); }
+.callout--gold strong { color: var(--gold); font: 24px var(--font-serif); }
+.scope-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+.scope-card { padding: 20px 22px; border: 1px solid var(--line-d); border-radius: 3px; background: rgba(255,255,255,.02); }
+.scope-card h5 { margin: 0 0 8px; color: var(--gold); font: 12px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; }
+.scope-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+/* Payment milestones */
+.miles { margin: 0; padding: 0; list-style: none; }
+.miles li { display: grid; grid-template-columns: 64px minmax(80px,1fr) 2.2fr; align-items: center; gap: 16px; padding: 12px 0; border-top: 1px solid var(--line-d); }
+.miles li:first-child { border-top: 0; }
+.miles__pct { color: var(--gold); font: 24px var(--font-serif); }
+.miles__bar { height: 6px; border-radius: 3px; background: rgba(255,255,255,.07); overflow: hidden; }
+.miles__bar i { display: block; height: 100%; background: var(--gold); border-radius: 3px; }
+.miles__txt { color: #d8cfbc; font-size: 15.5px; }
+
+/* Estimator */
+.rates-foot { max-width: 80ch; margin-top: 34px; color: var(--muted-d); font-size: 13.5px; line-height: 1.7; }
+
+@media (max-width: 1020px) {
+  .tier-grid--4 { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 820px) {
+  .rate-tabs { grid-template-columns: repeat(2,1fr); }
+  .tier-grid--3 { grid-template-columns: 1fr; }
+  .scope-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .rate-tab { padding: 14px 14px; }
+  .rate-tab span { font-size: 18px; }
+  .tier-grid--4 { grid-template-columns: 1fr; }
+  .acc summary { padding: 17px 48px 17px 18px; }
+  .acc__t { font-size: 19px; }
+  .acc__body { padding: 20px 14px 24px; }
+  .rt:has(thead th:nth-child(4)) { min-width: 600px; }
+  .rt:has(thead th:nth-child(3)) { min-width: 440px; }
+  .rt tbody th { min-width: 150px; }
+  .miles li { grid-template-columns: 52px 1fr; }
+  .miles__txt { grid-column: 1/-1; margin-top: -6px; }
+  .miles__bar { grid-column: 2; grid-row: 1; }
+  .pdf-link { width: 100%; justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { .rate-panel { animation: none; } }
+
+/* page-level additions for pricing.html */
+.page-rates .rates { padding-top: clamp(120px, 14vw, 170px); }
+.page-title { font-size: clamp(36px, 5.4vw, 66px); font-weight: 300; }
+.tier__price { white-space: nowrap; font-size: clamp(22px, 2.1vw, 30px); }
+.rate-tab { min-height: 44px; }
