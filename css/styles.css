@@ -188,8 +188,10 @@ p { margin: 0; }
 .filter { min-height: 44px; padding: 9px 16px; border: 1px solid var(--line-d); border-radius: 999px; background: transparent; cursor: pointer; color: var(--muted-d); font-size: 14px; font-weight: 500; transition: color .2s, border-color .2s, background-color .2s, transform .2s; }
 .filter:hover { color: var(--cream); border-color: rgba(239,230,214,.35); transform: translateY(-1px); }
 .filter.is-active { border-color: var(--brass); background: var(--brass); color: var(--brass-ink); }
-.wall { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-.tile { position: relative; display: block; width: 100%; aspect-ratio: 4/5; padding: 0; border: 0; overflow: hidden; border-radius: var(--r); background: var(--ink-2); cursor: zoom-in; transition: transform .25s var(--ease); }
+/* justified rows: every tile keeps its image's own aspect ratio (--ar = width / height) */
+.wall { --row: 220px; display: flex; flex-wrap: wrap; gap: 12px; }
+.wall::after { content: ""; flex: 999 1 0; }
+.tile { position: relative; display: block; flex: var(--ar, .8) 1 calc(var(--row) * var(--ar, .8)); aspect-ratio: var(--ar, .8); padding: 0; border: 0; overflow: hidden; border-radius: var(--r); background: var(--ink-2); cursor: zoom-in; transition: transform .25s var(--ease); }
 .tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease), filter .4s; }
 .tile:hover { transform: translateY(-2px); }
 .tile:hover img { transform: scale(1.03); filter: brightness(.88); }
@@ -312,7 +314,7 @@ p { margin: 0; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1080px) {
-  .wall { grid-template-columns: repeat(3, 1fr); }
+  .wall { --row: 190px; }
   .pkgs { grid-template-columns: repeat(2, 1fr); }
   .estimator { grid-template-columns: 1fr 1fr; }
   .estimator__head { grid-column: 1/-1; }
@@ -350,7 +352,10 @@ p { margin: 0; }
   .hero-actions .btn { flex: 1 1 100%; }
   .hero-trust { flex-direction: column; gap: 8px; }
   .hero-trust li + li::before { display: none; }
-  .wall { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .wall { --row: 130px; gap: 8px; }
+  .filters { flex-wrap: nowrap; width: calc(100% + 2 * var(--pad)); margin: 0 calc(var(--pad) * -1); padding: 0 var(--pad) 6px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .filters::-webkit-scrollbar { display: none; }
+  .filter { flex: none; }
   .pkgs, .pkgs--3 { grid-template-columns: 1fr; }
   .estimator { grid-template-columns: 1fr; }
   .estimator__form { grid-template-columns: 1fr; }

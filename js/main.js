@@ -7,24 +7,27 @@
   var RES = 'resources/';
   var WA = 'https://wa.me/918282938283';
 
-  /* numbered image list: { src, thumb } */
-  function seq(dir, from, to) {
-    var out = [];
-    for (var i = from; i <= to; i++) {
-      out.push({ src: RES + dir + '/' + i + '.webp', thumb: RES + 'thumbs/' + dir + '/' + i + '.webp' });
-    }
-    return out;
-  }
-
-  var GALLERIES = {
-    residential:   { title: 'Residential projects',         images: seq('Featured_works/Residential', 1, 11) },
-    commercial:    { title: 'Commercial projects',          images: seq('Featured_works/Commercial', 1, 9) },
-    interiors:     { title: 'Interior renders',             images: seq('Interior_design_and_its_execution', 1, 9) },
-    visualization: { title: '3D visualization',             images: seq('3d_software_modelling_and_rendering', 1, 25) },
-    elevation:     { title: 'Facade & elevation design',    images: seq('Facade_design_and_execution', 1, 8) },
-    models:        { title: 'Architectural scale models',   images: seq('3d_miniature_model_making', 1, 8) }
-  };
-  var ORDER = ['residential', 'commercial', 'interiors', 'elevation', 'visualization', 'models'];
+  /* Image lists live in js/gallery-data.js (descriptive file names, alt text, thumb sizes). */
+  var GALLERIES = {};
+  var SRC = window.MSM_GALLERIES || {};
+  Object.keys(SRC).forEach(function (k) {
+    GALLERIES[k] = {
+      title: SRC[k].title,
+      images: SRC[k].images.map(function (im) {
+        return { src: RES + im.path + '.webp', thumb: RES + 'thumbs/' + im.path + '.webp', alt: im.alt, w: im.w, h: im.h };
+      })
+    };
+  });
+  /* near-duplicate shots: kept in their own category, skipped in the mixed "All" view */
+  var SKIP_IN_ALL = [
+    'projects/residential/marble-hall-cove-ceiling', 'projects/commercial/cafe-planter-table-front',
+    'projects/commercial/office-workstations-wide', 'projects/commercial/office-cabin-and-workstations',
+    'models/tower-model-day-side', 'models/wooden-house-model-side', 'models/wooden-house-model-corner',
+    'interiors/kitchen-grey-compact', 'visualization/bathroom-red-tile-window', 'visualization/bathroom-walnut-window',
+    'visualization/living-room-starlight-ceiling'
+  ];
+  var ORDER = ['residential', 'commercial', 'interiors', 'elevation', 'architecture', 'visualization', 'models']
+    .filter(function (k) { return GALLERIES[k]; });
 
   document.addEventListener('DOMContentLoaded', function () {
 
@@ -61,7 +64,7 @@
     function renderLb() {
       var img = current.images[current.i];
       lbImg.src = img.src;
-      lbImg.alt = GALLERIES[current.key].title + ', image ' + (current.i + 1);
+      lbImg.alt = img.alt || (GALLERIES[current.key].title + ', image ' + (current.i + 1));
       lbCount.textContent = (current.i + 1) + ' / ' + current.images.length;
       /* preload neighbour */
       var next = current.images[(current.i + 1) % current.images.length];
@@ -126,7 +129,7 @@
     /* ---------- portfolio wall ---------- */
     var wall = document.getElementById('wall');
     var moreBtn = document.getElementById('wallMore');
-    var PAGE = 12;
+    var PAGE = 18;
     var wallState = { filter: 'all', shown: PAGE };
 
     function wallItems(filter) {
@@ -137,7 +140,8 @@
         ORDER.forEach(function (k) { max = Math.max(max, GALLERIES[k].images.length); });
         for (var i = 0; i < max; i++) {
           ORDER.forEach(function (k) {
-            if (GALLERIES[k].images[i]) items.push({ key: k, i: i, img: GALLERIES[k].images[i] });
+            var im = GALLERIES[k].images[i];
+            if (im && SKIP_IN_ALL.indexOf(im.src.replace(RES, '').replace('.webp', '')) === -1) items.push({ key: k, i: i, img: im });
           });
         }
       } else {
@@ -156,10 +160,14 @@
         b.className = 'tile';
         b.setAttribute('data-gallery', it.key);
         b.setAttribute('data-start', it.i);
-        b.setAttribute('aria-label', 'Open ' + GALLERIES[it.key].title + ', image ' + (it.i + 1));
+        b.setAttribute('aria-label', 'Open ' + it.img.alt.toLowerCase() + ' (' + GALLERIES[it.key].title + ')');
+        /* keep each image's own proportions: tiles grow in a row by their aspect ratio */
+        var ratio = it.img.w && it.img.h ? (it.img.w / it.img.h) : 0.8;
+        b.style.setProperty('--ar', ratio.toFixed(3));
         var im = document.createElement('img');
         im.src = it.img.thumb;
         im.alt = '';
+        if (it.img.w) { im.width = it.img.w; im.height = it.img.h; }
         im.loading = 'lazy';
         im.decoding = 'async';
         b.appendChild(im);
