@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://msm-design.in/sitemap.xml
