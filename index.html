@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://msm-design.in/resources/share.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Cantilevered tower facade designed by MSM Design Studio">
+<meta property="og:image:alt" content="Apartment building with curved balconies at dusk, designed by MSM Design Studio">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="MSM Design Studio — Architects &amp; Interior Designers, Kolkata">
 <meta name="twitter:description" content="Architecture, turnkey interiors, facades and 3D design for homes and businesses in Kolkata.">
@@ -27,7 +27,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="resources/hero/tower-cantilever-upview.webp" imagesrcset="resources/thumbs/hero/tower-cantilever-upview-1100.webp 1100w, resources/hero/tower-cantilever-upview.webp 1920w" imagesizes="100vw">
+<link rel="preload" as="image" href="resources/hero/apartment-curved-balconies-dusk.webp" imagesrcset="resources/thumbs/hero/apartment-curved-balconies-dusk-1100.webp 1100w, resources/hero/apartment-curved-balconies-dusk.webp 1672w" imagesizes="100vw">
 <link rel="stylesheet" href="css/styles.css">
 
 <script type="application/ld+json">
@@ -72,8 +72,9 @@
 
     <nav aria-label="Main">
       <ul class="nav-links" id="navLinks">
+        <li><a href="#render-vs-real">3D vs built</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#process">Process</a></li>
+        <li><a href="#rooms">Rooms</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#studio">Studio</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -88,8 +89,8 @@
 <!-- ================= 1. HERO ================= -->
 <section class="hero" id="home">
   <div class="hero-media" aria-hidden="true">
-    <img src="resources/hero/tower-cantilever-upview.webp"
-         srcset="resources/thumbs/hero/tower-cantilever-upview-1100.webp 1100w, resources/hero/tower-cantilever-upview.webp 1920w"
+    <img src="resources/hero/apartment-curved-balconies-dusk.webp"
+         srcset="resources/thumbs/hero/apartment-curved-balconies-dusk-1100.webp 1100w, resources/hero/apartment-curved-balconies-dusk.webp 1672w"
          sizes="100vw" alt="" fetchpriority="high">
   </div>
 
@@ -120,6 +121,41 @@
     <div class="strip-item"><span class="strip-n">02</span><span>Turnkey interiors</span></div>
     <div class="strip-item"><span class="strip-n">03</span><span>Facade &amp; elevation</span></div>
     <div class="strip-item"><span class="strip-n">04</span><span>3D renders &amp; scale models</span></div>
+  </div>
+</section>
+
+<!-- ================= RENDER VS REALITY =================
+     Projects come from window.MSM_CASES in js/gallery-data.js.
+     Images: resources/case-studies/<slug>/render.webp and built.webp (same 4:5 crop). -->
+<section class="section panel-light cases" id="render-vs-real">
+  <div class="container">
+    <div class="sec-head">
+      <p class="eyebrow">Render vs reality</p>
+      <h2>We design it in 3D. Then we build <em>exactly that.</em></h2>
+      <p>Drag across the picture: our render on one side, the finished building on the other. Six real projects.</p>
+    </div>
+    <div class="case">
+      <div class="ba" id="caseBa" style="--pos:50%">
+        <img class="ba-after" id="caseBuilt" src="resources/case-studies/contemporary-villa/built.webp" alt="Finished contemporary villa, photographed at night" width="1200" height="1500" loading="lazy">
+        <img class="ba-before" id="caseRender" src="resources/case-studies/contemporary-villa/render.webp" alt="3D render of the contemporary villa" width="1200" height="1500" loading="lazy">
+        <span class="ba-tag ba-tag--l">3D render</span><span class="ba-tag ba-tag--r">Built</span>
+        <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Compare the 3D render with the finished building">
+        <span class="ba-handle" aria-hidden="true"></span>
+      </div>
+      <div class="case-info">
+        <p class="spread-kicker" id="caseKicker">Residential · Villa</p>
+        <h3 id="caseTitle">Contemporary villa, lit for the evening</h3>
+        <p class="case-hint">Left of the line is the render we showed the client. Right is the photograph after handover.</p>
+        <div class="case-picker" id="casePicker" role="group" aria-label="Choose a project"></div>
+        <div class="case-actions">
+          <a class="btn btn--dark" id="caseQuote" href="https://wa.me/918282938283?text=Hi%20MSM%20Design%2C%20I%27d%20like%20a%20home%20like%20your%20render-vs-reality%20project." target="_blank" rel="noopener noreferrer">Plan a home like this</a>
+          <button type="button" class="btn btn--line" id="caseShare">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+            Share this
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -203,42 +239,39 @@
   </div>
 </section>
 
-<!-- ================= 4. CASE STUDIES (render → built → cost) =================
-     Hidden until real projects are added. To publish:
-       1. Duplicate one <article class="case"> per project (2–3 total).
-       2. Put the render in .ba-before and the finished photo in .ba-after (same angle).
-       3. Fill the facts list and the quoted figure from the signed quotation.
-       4. Remove the `hidden` attribute from the <section>.
--->
-<section class="section panel-light cases" id="case-studies" hidden>
+<!-- ================= ROOM EXPLORER ================= -->
+<section class="section rooms" id="rooms">
   <div class="container">
     <div class="sec-head">
-      <p class="eyebrow">Case studies</p>
-      <h2>The render, the result, the real cost</h2>
-      <p>Drag across each image to compare our 3D design with the finished space.</p>
+      <p class="eyebrow">Room by room</p>
+      <h2>Which room are you <em>planning?</em></h2>
+      <p>Tap a room to see designs we've drawn for homes like yours, then see what it could cost.</p>
     </div>
-
-    <article class="case">
-      <div class="ba" style="--pos:50%">
-        <!-- add src="resources/case-studies/<project>/built.webp" and src=".../render.webp" -->
-        <img class="ba-after" alt="Finished space photograph">
-        <img class="ba-before" alt="3D render of the same space">
-        <span class="ba-tag ba-tag--l">Render</span><span class="ba-tag ba-tag--r">Built</span>
-        <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Compare render and finished photograph">
-        <span class="ba-handle" aria-hidden="true"></span>
+    <div class="room-chips" role="group" aria-label="Choose a room">
+      <button type="button" class="filter is-active" data-room="bedroom" aria-pressed="true">Bedroom</button>
+      <button type="button" class="filter" data-room="kitchen" aria-pressed="false">Kitchen</button>
+      <button type="button" class="filter" data-room="living" aria-pressed="false">Living room</button>
+      <button type="button" class="filter" data-room="kids" aria-pressed="false">Kids' room</button>
+      <button type="button" class="filter" data-room="dining" aria-pressed="false">Dining</button>
+      <button type="button" class="filter" data-room="bath" aria-pressed="false">Bathroom</button>
+      <button type="button" class="filter" data-room="balcony" aria-pressed="false">Balcony</button>
+      <button type="button" class="filter" data-room="wardrobe" aria-pressed="false">Wardrobe</button>
+    </div>
+    <div class="room-stage" id="roomStage" aria-live="polite">
+      <div class="room-grid" id="roomGrid">
+        <button type="button" class="room-main" data-gallery="interiors" data-start="5"><img src="resources/interiors/bedroom-arched-headboard.webp" alt="Bedroom with arched, lit headboard wall" loading="lazy"></button>
       </div>
-      <div class="case-info">
-        <p class="spread-kicker">Turnkey interiors · Signature</p>
-        <h3>PROJECT NAME, AREA</h3>
-        <dl class="case-facts">
-          <div><dt>Area</dt><dd>— sq ft carpet</dd></div>
-          <div><dt>Scope</dt><dd>—</dd></div>
-          <div><dt>Timeline</dt><dd>— weeks</dd></div>
-          <div><dt>Quoted</dt><dd class="case-cost">₹— <small>/ sq ft + GST</small></dd></div>
-        </dl>
-        <a class="btn btn--dark" href="https://wa.me/918282938283?text=Hi%20MSM%20Design%2C%20I%27d%20like%20a%20quote%20for%20a%20project%20like%20your%20case%20study." target="_blank" rel="noopener noreferrer">Get a quote like this</a>
+      <div class="room-card">
+        <p class="spread-kicker" id="roomCount">Bedroom ideas</p>
+        <h3 id="roomTitle">Bedrooms</h3>
+        <p id="roomText">Fluted panels, upholstered headboards and wardrobes that disappear into the wall.</p>
+        <p class="room-price">Turnkey interiors from <strong>₹1,400 / sq ft</strong></p>
+        <div class="room-actions">
+          <a class="btn btn--gold" href="#estimator" id="roomEstimate">Estimate my home</a>
+          <a class="btn btn--ghost" id="roomWa" href="https://wa.me/918282938283" target="_blank" rel="noopener noreferrer">Ask about this room</a>
+        </div>
       </div>
-    </article>
+    </div>
   </div>
 </section>
 
@@ -314,6 +347,7 @@
         <button type="button" class="filter is-active" data-filter="all" aria-pressed="true">All</button>
         <button type="button" class="filter" data-filter="residential" aria-pressed="false">Residential</button>
         <button type="button" class="filter" data-filter="commercial" aria-pressed="false">Commercial</button>
+        <button type="button" class="filter" data-filter="hospitality" aria-pressed="false">Hospitality</button>
         <button type="button" class="filter" data-filter="interiors" aria-pressed="false">Interior renders</button>
         <button type="button" class="filter" data-filter="visualization" aria-pressed="false">3D visualization</button>
         <button type="button" class="filter" data-filter="elevation" aria-pressed="false">Facades</button>
@@ -545,7 +579,7 @@
   </div>
 </div>
 
-<script src="js/gallery-data.js"></script>
+<script src="js/gallery-data.js" charset="utf-8"></script>
 <script src="js/main.js"></script>
 <script src="js/rates.js"></script>
 </body>

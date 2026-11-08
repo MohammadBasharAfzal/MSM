@@ -14,7 +14,7 @@
     GALLERIES[k] = {
       title: SRC[k].title,
       images: SRC[k].images.map(function (im) {
-        return { src: RES + im.path + '.webp', thumb: RES + 'thumbs/' + im.path + '.webp', alt: im.alt, w: im.w, h: im.h };
+        return { src: RES + im.path + '.webp', thumb: RES + 'thumbs/' + im.path + '.webp', alt: im.alt, w: im.w, h: im.h, room: im.room };
       })
     };
   });
@@ -24,9 +24,11 @@
     'projects/commercial/office-workstations-wide', 'projects/commercial/office-cabin-and-workstations',
     'models/tower-model-day-side', 'models/wooden-house-model-side', 'models/wooden-house-model-corner',
     'interiors/kitchen-grey-compact', 'visualization/bathroom-red-tile-window', 'visualization/bathroom-walnut-window',
-    'visualization/living-room-starlight-ceiling'
+    'visualization/living-room-starlight-ceiling', 'projects/hospitality/guest-bathroom'
   ];
-  var ORDER = ['residential', 'commercial', 'interiors', 'elevation', 'architecture', 'visualization', 'models']
+  var CASES = window.MSM_CASES || [];
+  var SITE = 'https://msm-design.in/';
+  var ORDER = ['residential', 'commercial', 'hospitality', 'interiors', 'elevation', 'architecture', 'visualization', 'models']
     .filter(function (k) { return GALLERIES[k]; });
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -177,9 +179,9 @@
       moreBtn.hidden = items.length <= wallState.shown;
     }
     if (wall) {
-      document.querySelectorAll('.filter').forEach(function (f) {
+      document.querySelectorAll('.filter[data-filter]').forEach(function (f) {
         f.addEventListener('click', function () {
-          document.querySelectorAll('.filter').forEach(function (o) {
+          document.querySelectorAll('.filter[data-filter]').forEach(function (o) {
             var on = o === f;
             o.classList.toggle('is-active', on);
             o.setAttribute('aria-pressed', on ? 'true' : 'false');
@@ -209,13 +211,129 @@
     }
 
     /* ---------- render vs built sliders ---------- */
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     document.querySelectorAll('.ba').forEach(function (ba) {
       var r = ba.querySelector('.ba-range');
       if (!r) return;
       function set() { ba.style.setProperty('--pos', r.value + '%'); }
-      r.addEventListener('input', set);
+      r.addEventListener('input', function () { ba.classList.add('is-touched'); set(); });
       set();
+      /* one gentle sweep the first time it scrolls into view, so people see it moves */
+      if (!reduceMotion && 'IntersectionObserver' in window) {
+        var seen = new IntersectionObserver(function (en) {
+          if (!en[0].isIntersecting) return;
+          seen.disconnect();
+          var keys = [50, 22, 78, 50], k = 0;
+          ba.classList.add('is-sweeping');
+          (function next() {
+            if (ba.classList.contains('is-touched') || k >= keys.length) { ba.classList.remove('is-sweeping'); return; }
+            r.value = keys[k++]; set();
+            setTimeout(next, 700);
+          })();
+        }, { threshold: 0.6 });
+        seen.observe(ba);
+      }
     });
+
+    /* ---------- render vs reality: project picker + share ---------- */
+    var picker = document.getElementById('casePicker');
+    if (picker && CASES.length) {
+      var caseRender = document.getElementById('caseRender');
+      var caseBuilt = document.getElementById('caseBuilt');
+      var caseTitle = document.getElementById('caseTitle');
+      var caseKicker = document.getElementById('caseKicker');
+      var caseQuote = document.getElementById('caseQuote');
+      var caseBa = document.getElementById('caseBa');
+      var caseRange = caseBa.querySelector('.ba-range');
+      var currentCase = 0;
+      var caseSrc = function (c, n) { return RES + 'case-studies/' + c.slug + '/' + n + '.webp'; };
+      var showCase = function (i) {
+        var c = CASES[i]; currentCase = i;
+        caseRender.src = caseSrc(c, 'render'); caseRender.alt = '3D render: ' + c.title.toLowerCase();
+        caseBuilt.src = caseSrc(c, 'built'); caseBuilt.alt = 'Finished building: ' + c.title.toLowerCase();
+        caseTitle.textContent = c.title; caseKicker.textContent = c.kicker;
+        caseQuote.href = WA + '?text=' + encodeURIComponent('Hi MSM Design, I saw "' + c.title + '" in your render vs reality projects. I would like to plan something similar.');
+        caseRange.value = 50; caseBa.style.setProperty('--pos', '50%');
+        picker.querySelectorAll('button').forEach(function (b, j) {
+          b.classList.toggle('is-active', j === i);
+          b.setAttribute('aria-pressed', j === i ? 'true' : 'false');
+        });
+        var n = CASES[(i + 1) % CASES.length];
+        new Image().src = caseSrc(n, 'render'); new Image().src = caseSrc(n, 'built');
+      };
+      CASES.forEach(function (c, i) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'case-pick';
+        b.setAttribute('aria-label', 'Show ' + c.title);
+        var im = document.createElement('img');
+        im.src = RES + 'thumbs/case-studies/' + c.slug + '/built.webp'; im.alt = ''; im.loading = 'lazy';
+        b.appendChild(im);
+        b.addEventListener('click', function () { showCase(i); });
+        picker.appendChild(b);
+      });
+      showCase(0);
+
+      document.getElementById('caseShare').addEventListener('click', function () {
+        var c = CASES[currentCase];
+        var url = SITE + '#render-vs-real';
+        var text = '3D render vs the finished building: ' + c.title + ' by MSM Design Studio, Kolkata.';
+        if (navigator.share) {
+          navigator.share({ title: 'Render vs reality · MSM Design Studio', text: text, url: url }).catch(function () {});
+        } else {
+          window.open('https://wa.me/?text=' + encodeURIComponent(text + ' ' + url), '_blank', 'noopener');
+        }
+      });
+    }
+
+    /* ---------- room explorer ---------- */
+    var roomGrid = document.getElementById('roomGrid');
+    if (roomGrid && GALLERIES.interiors) {
+      var ROOMS = {
+        bedroom:  ['Bedrooms', 'Fluted panels, upholstered headboards and wardrobes that disappear into the wall.', 'bedroom'],
+        kitchen:  ['Modular kitchens', 'Soft-close storage, quartz tops and under-cabinet lighting, planned around how you cook.', 'kitchen'],
+        living:   ['Living rooms', 'TV walls, cove ceilings and seating planned for the whole family.', 'living room'],
+        kids:     ["Kids' rooms", 'Study desks, bookshelves and storage that grow with your child.', "kid's room"],
+        dining:   ['Dining', 'Display units and lighting that make everyday dinners feel like an occasion.', 'dining area'],
+        bath:     ['Bathrooms', 'Glass showers, wall-hung fittings and warm vanity lighting.', 'bathroom'],
+        balcony:  ['Balconies', 'Swings, planters and screens that turn a balcony into another room.', 'balcony'],
+        wardrobe: ['Wardrobes & dressing', 'Walk-in storage with glass shutters and lit shelves.', 'wardrobe']
+      };
+      var roomTitle = document.getElementById('roomTitle');
+      var roomText = document.getElementById('roomText');
+      var roomCount = document.getElementById('roomCount');
+      var roomWa = document.getElementById('roomWa');
+      var showRoom = function (room) {
+        var items = [];
+        GALLERIES.interiors.images.forEach(function (im, i) { if (im.room === room) items.push({ im: im, i: i }); });        roomGrid.innerHTML = '';
+        roomGrid.className = 'room-grid room-grid--' + Math.min(items.length, 4);
+        items.slice(0, 4).forEach(function (it, k) {
+          var b = document.createElement('button');
+          b.type = 'button'; b.className = k ? 'room-thumb' : 'room-main';
+          b.setAttribute('data-gallery', 'interiors'); b.setAttribute('data-start', it.i);
+          b.setAttribute('aria-label', 'Open ' + it.im.alt.toLowerCase());
+          var img = document.createElement('img');
+          img.src = k ? it.im.thumb : it.im.src; img.alt = it.im.alt; img.decoding = 'async';
+          b.appendChild(img); roomGrid.appendChild(b);
+        });
+        var t = ROOMS[room];
+        roomTitle.textContent = t[0]; roomText.textContent = t[1];
+        roomCount.textContent = items.length + (items.length === 1 ? ' design' : ' designs') + ' to explore';
+        roomWa.href = WA + '?text=' + encodeURIComponent('Hi MSM Design, I am planning my ' + t[2] + '. Can we talk about ideas and budget?');
+        document.querySelectorAll('[data-room]').forEach(function (c) {
+          var on = c.getAttribute('data-room') === room;
+          c.classList.toggle('is-active', on); c.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+      };
+      document.querySelectorAll('[data-room]').forEach(function (c) {
+        c.addEventListener('click', function () { showRoom(c.getAttribute('data-room')); });
+      });
+      showRoom('bedroom');
+      var roomEst = document.getElementById('roomEstimate');
+      if (roomEst) roomEst.addEventListener('click', function () {
+        var seg = document.querySelector('.seg-btn[data-mode="interior"]');
+        if (seg) seg.click();
+      });
+    }
 
     /* ---------- pricing: construction / interiors switch ---------- */
     var segs = document.querySelectorAll('.seg-btn');
