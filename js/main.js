@@ -296,7 +296,7 @@
         dining:   ['Dining', 'Display units and lighting that make everyday dinners feel like an occasion.', 'dining area'],
         bath:     ['Bathrooms', 'Glass showers, wall-hung fittings and warm vanity lighting.', 'bathroom'],
         balcony:  ['Balconies', 'Swings, planters and screens that turn a balcony into another room.', 'balcony'],
-        wardrobe: ['Wardrobes & dressing', 'Walk-in storage with glass shutters and lit shelves.', 'wardrobe']
+        wardrobe: ['Walk-in closets', 'A private dressing room: glass-front wardrobes, lit shelves and a vanity, planned around your collection.', 'walk-in closet']
       };
       var roomTitle = document.getElementById('roomTitle');
       var roomText = document.getElementById('roomText');
