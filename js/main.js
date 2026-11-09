@@ -249,8 +249,12 @@
       var caseSrc = function (c, n) { return RES + 'case-studies/' + c.slug + '/' + n + '.webp'; };
       var showCase = function (i) {
         var c = CASES[i]; currentCase = i;
-        caseRender.src = caseSrc(c, 'render'); caseRender.alt = '3D render: ' + c.title.toLowerCase();
-        caseBuilt.src = caseSrc(c, 'built'); caseBuilt.alt = 'Finished building: ' + c.title.toLowerCase();
+        var set2 = function (img, n) {
+          img.srcset = RES + 'thumbs/case-studies/' + c.slug + '/' + n + '.webp 760w, ' + caseSrc(c, n) + ' 1200w';
+          img.src = caseSrc(c, n);
+        };
+        set2(caseRender, 'render'); caseRender.alt = '3D render: ' + c.title.toLowerCase();
+        set2(caseBuilt, 'built'); caseBuilt.alt = 'Finished building: ' + c.title.toLowerCase();
         caseTitle.textContent = c.title; caseKicker.textContent = c.kicker;
         caseQuote.href = WA + '?text=' + encodeURIComponent('Hi MSM Design, I saw "' + c.title + '" in your render vs reality projects. I would like to plan something similar.');
         caseRange.value = 50; caseBa.style.setProperty('--pos', '50%');
@@ -266,7 +270,7 @@
         b.type = 'button'; b.className = 'case-pick';
         b.setAttribute('aria-label', 'Show ' + c.title);
         var im = document.createElement('img');
-        im.src = RES + 'thumbs/case-studies/' + c.slug + '/built.webp'; im.alt = ''; im.loading = 'lazy';
+        im.src = RES + 'thumbs/case-studies/' + c.slug + '/pick.webp'; im.alt = ''; im.loading = 'lazy';
         b.appendChild(im);
         b.addEventListener('click', function () { showCase(i); });
         picker.appendChild(b);
@@ -312,6 +316,7 @@
           b.setAttribute('data-gallery', 'interiors'); b.setAttribute('data-start', it.i);
           b.setAttribute('aria-label', 'Open ' + it.im.alt.toLowerCase());
           var img = document.createElement('img');
+          if (!k) { img.srcset = it.im.thumb + ' 760w, ' + it.im.src + ' 1600w'; img.sizes = '(max-width: 760px) 92vw, 640px'; }
           img.src = k ? it.im.thumb : it.im.src; img.alt = it.im.alt; img.decoding = 'async';
           b.appendChild(img); roomGrid.appendChild(b);
         });
@@ -390,6 +395,7 @@
     if (waBtn) waBtn.addEventListener('click', function () {
       var d = validate();
       if (!d) return;
+      document.dispatchEvent(new CustomEvent('msm:lead', { detail: { method: 'whatsapp_form', service: d.service } }));
       window.open(WA + '?text=' + encodeURIComponent(composeText(d)), '_blank', 'noopener');
     });
     form.addEventListener('submit', function (e) {
@@ -407,6 +413,7 @@
       fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
         .then(function (res) {
           if (!res.ok) return fail();
+          document.dispatchEvent(new CustomEvent('msm:lead', { detail: { method: 'form', service: d.service } }));
           form.hidden = true;
           var thanks = document.getElementById('formThanks');
           if (thanks) thanks.hidden = false;

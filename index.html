@@ -26,9 +26,11 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Manrope:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Manrope:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Manrope:wght@400;500;600&display=swap"></noscript>
 <link rel="preload" as="image" href="resources/hero/apartment-curved-balconies-dusk.webp" imagesrcset="resources/thumbs/hero/apartment-curved-balconies-dusk-1100.webp 1100w, resources/hero/apartment-curved-balconies-dusk.webp 1672w" imagesizes="100vw">
-<link rel="stylesheet" href="css/styles.css?v=20261109">
+<link rel="stylesheet" href="css/styles.css?v=20261109b">
 
 <script type="application/ld+json">
 {
@@ -138,8 +140,8 @@
     </div>
     <div class="case">
       <div class="ba" id="caseBa" style="--pos:50%">
-        <img class="ba-after" id="caseBuilt" src="resources/case-studies/contemporary-villa/built.webp" alt="Finished contemporary villa, photographed at night" width="1200" height="1500" loading="lazy">
-        <img class="ba-before" id="caseRender" src="resources/case-studies/contemporary-villa/render.webp" alt="3D render of the contemporary villa" width="1200" height="1500" loading="lazy">
+        <img class="ba-after" id="caseBuilt" src="resources/case-studies/contemporary-villa/built.webp" sizes="(max-width: 900px) 92vw, 640px" alt="Finished contemporary villa, photographed at night" width="1200" height="1500" loading="lazy">
+        <img class="ba-before" id="caseRender" src="resources/case-studies/contemporary-villa/render.webp" sizes="(max-width: 900px) 92vw, 640px" alt="3D render of the contemporary villa" width="1200" height="1500" loading="lazy">
         <span class="ba-tag ba-tag--l">3D render</span><span class="ba-tag ba-tag--r">Built</span>
         <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Compare the 3D render with the finished building">
         <span class="ba-handle" aria-hidden="true"></span>
@@ -173,7 +175,7 @@
     <!-- Project 1. Replace the title/meta with the real project name, location and area when available. -->
     <article class="spread">
       <button type="button" class="spread-main" data-gallery="residential" aria-label="Open the residential gallery">
-        <img src="resources/projects/residential/foyer-chandelier-marble-inlay.webp" alt="Marble foyer with inlaid medallion floor and chandelier cove ceiling" loading="lazy" width="1200" height="1600">
+        <img src="resources/projects/residential/foyer-chandelier-marble-inlay.webp" srcset="resources/thumbs/projects/residential/foyer-chandelier-marble-inlay.webp 760w, resources/projects/residential/foyer-chandelier-marble-inlay.webp 1600w" sizes="(max-width: 900px) 92vw, 640px" alt="Marble foyer with inlaid medallion floor and chandelier cove ceiling" loading="lazy" width="1200" height="1600">
       </button>
       <div class="spread-side">
         <div class="spread-text">
@@ -196,7 +198,7 @@
     <!-- Project 2 -->
     <article class="spread spread--flip">
       <button type="button" class="spread-main" data-gallery="commercial" aria-label="Open the commercial gallery">
-        <img src="resources/projects/commercial/office-corridor-timber.webp" alt="Office corridor with timber flooring, glass cabins and linear lighting" loading="lazy">
+        <img src="resources/projects/commercial/office-corridor-timber.webp" srcset="resources/thumbs/projects/commercial/office-corridor-timber.webp 760w, resources/projects/commercial/office-corridor-timber.webp 1600w" sizes="(max-width: 900px) 92vw, 640px" alt="Office corridor with timber flooring, glass cabins and linear lighting" loading="lazy">
       </button>
       <div class="spread-side">
         <div class="spread-text">
@@ -219,7 +221,7 @@
     <!-- Project 3 -->
     <article class="spread">
       <button type="button" class="spread-main" data-gallery="elevation" data-start="2" aria-label="Open the facade gallery">
-        <img src="resources/facades/villa-white-daylight.webp" alt="Contemporary white villa facade in daylight" loading="lazy" width="1200" height="1600">
+        <img src="resources/facades/villa-white-daylight.webp" srcset="resources/thumbs/facades/villa-white-daylight.webp 760w, resources/facades/villa-white-daylight.webp 1600w" sizes="(max-width: 900px) 92vw, 640px" alt="Contemporary white villa facade in daylight" loading="lazy" width="1200" height="1600">
       </button>
       <div class="spread-side">
         <div class="spread-text">
@@ -328,8 +330,8 @@
           <img class="is-active fit" src="resources/thumbs/architecture/site-plan-ground-floor-sketch.webp" alt="">
           <img class="fit" src="resources/thumbs/architecture/oval-floor-plans.webp" alt="" loading="lazy">
           <img src="resources/models/tower-model-night-lit.webp" alt="" loading="lazy">
-          <img src="resources/projects/residential/wardrobe-brass-inlay.webp" alt="" loading="lazy">
-          <img src="resources/projects/residential/living-room-arched-window.webp" alt="" loading="lazy">
+          <img src="resources/projects/residential/wardrobe-brass-inlay.webp" srcset="resources/thumbs/projects/residential/wardrobe-brass-inlay.webp 760w, resources/projects/residential/wardrobe-brass-inlay.webp 1600w" sizes="(max-width: 900px) 92vw, 640px" alt="" loading="lazy">
+          <img src="resources/projects/residential/living-room-arched-window.webp" srcset="resources/thumbs/projects/residential/living-room-arched-window.webp 760w, resources/projects/residential/living-room-arched-window.webp 1600w" sizes="(max-width: 900px) 92vw, 640px" alt="" loading="lazy">
         </div>
         <div class="stage-progress"><span></span></div>
       </div>
@@ -586,8 +588,9 @@
   </div>
 </div>
 
-<script src="js/gallery-data.js?v=20261109" charset="utf-8"></script>
-<script src="js/main.js?v=20261109"></script>
-<script src="js/rates.js?v=20261109"></script>
+<script src="js/analytics.js?v=20261109b"></script>
+<script src="js/gallery-data.js?v=20261109b" charset="utf-8"></script>
+<script src="js/main.js?v=20261109b"></script>
+<script src="js/rates.js?v=20261109b"></script>
 </body>
 </html>

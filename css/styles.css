@@ -10,7 +10,7 @@
   --brass: #c6a15b;
   --brass-hi: #d8b878;
   --brass-ink: #1f1708;
-  --brass-deep: #8a6a2e;
+  --brass-deep: #74561f;
   --paper: #f3eee6;
   --paper-2: #ebe3d6;
   --ink-on-paper: #1c1813;
@@ -437,3 +437,9 @@ p { margin: 0; }
   .room-grid .room-thumb { aspect-ratio: 1; }
   .room-grid--1 .room-main, .room-grid--2 .room-main { grid-column: 1 / -1; }
 }
+
+/* contrast: brass accents on the light paper sections use the deeper brass */
+.panel-light h2 em { color: var(--brass-deep); }
+/* the headline slides in without starting invisible, so it paints (and counts) immediately */
+.hero h1[data-enter] { animation-name: enterMove; }
+@keyframes enterMove { from { transform: translateY(18px); } to { transform: none; } }
